@@ -1,5 +1,6 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -28,11 +29,22 @@ public class SeleniumDemo {
         WebElement inviteGroup = driver.findElement(By.xpath("//*[contains(text(), 'Запросити учасників групи')]"));
         inviteGroup.click();
 
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        jse.executeScript("scroll(0, 1000000000);");
+
+
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
+
         List<WebElement> elements = driver.findElements(By.xpath("//button[contains(text(), 'Надіслати запрошення')]"));
         for (WebElement element : elements) {
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
             System.out.println("NIAVKA" + ((RemoteWebElement) element).getId());
-            element.click();
+            try {
+                element.click();
+            } catch (Throwable n) {
+                System.out.println("SKIPPED" + ((RemoteWebElement) element).getId());
+            }
         }
     }
 
