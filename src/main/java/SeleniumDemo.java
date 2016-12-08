@@ -29,14 +29,11 @@ public class SeleniumDemo {
         inviteGroup.click();
 
         List<WebElement> elements = driver.findElements(By.xpath("//button[contains(text(), 'Надіслати запрошення')]"));
-        for (WebElement element: elements){
+        for (WebElement element : elements) {
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            System.out.println("NIAVKA"+((RemoteWebElement) element).getId());
+            System.out.println("NIAVKA" + ((RemoteWebElement) element).getId());
             element.click();
         }
-
-
-
     }
 
     private void vkLogin(WebDriver driver) {
