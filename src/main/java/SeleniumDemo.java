@@ -1,9 +1,7 @@
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.RemoteWebElement;
 
 import java.util.List;
@@ -14,11 +12,16 @@ public class SeleniumDemo {
 
     @Test
     public void navigateToVk() {
-        System.setProperty("webdriver.chrome.driver", "driver\\chromedriver.exe");
+
+
+
+     System.setProperty("webdriver.chrome.driver", "D://chromedriver.exe");
         WebDriver driver = new ChromeDriver();
+
+
         vkLogin(driver);
 
-        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
 
         WebElement aVechornychka = driver.findElement(By.xpath("//*[contains(text(),'Андріївська')]"));
         aVechornychka.click();
@@ -29,13 +32,15 @@ public class SeleniumDemo {
         WebElement inviteGroup = driver.findElement(By.xpath("//*[contains(text(), 'Запросити учасників групи')]"));
         inviteGroup.click();
 
-        JavascriptExecutor jse = (JavascriptExecutor) driver;
-        jse.executeScript("scroll(0, 1000000000);");
+        driver.manage().window().setSize(new Dimension(1920,108000));
+//        driver.manage().window().maximize();
+//        JavascriptExecutor jse = (JavascriptExecutor) driver;
+//        jse.executeScript("scroll(0, 1000000000);");
 
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
-
+        int count = 0;
         List<WebElement> elements = driver.findElements(By.xpath("//button[contains(text(), 'Надіслати запрошення')]"));
         for (WebElement element : elements) {
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
@@ -45,7 +50,9 @@ public class SeleniumDemo {
             } catch (Throwable n) {
                 System.out.println("SKIPPED" + ((RemoteWebElement) element).getId());
             }
+            count = count + 1;
         }
+        System.out.println(count);
     }
 
     private void vkLogin(WebDriver driver) {
@@ -54,11 +61,11 @@ public class SeleniumDemo {
 
         WebElement loginField = driver.findElement(By.id("index_email"));
         loginField.clear();
-        loginField.sendKeys("rishenka@ukr.net");
+        loginField.sendKeys("+38050 4457128");
 
         WebElement passField = driver.findElement(By.id("index_pass"));
         passField.clear();
-        passField.sendKeys("otVinta1995");
+        passField.sendKeys("VechornytsiAAA");
 
         WebElement loginBtn = driver.findElement(By.id("index_login_button"));
         loginBtn.click();
