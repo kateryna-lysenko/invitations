@@ -32,27 +32,31 @@ public class SeleniumDemo {
         WebElement inviteGroup = driver.findElement(By.xpath("//*[contains(text(), 'Запросити учасників групи')]"));
         inviteGroup.click();
 
-        driver.manage().window().setSize(new Dimension(1920,108000));
-//        driver.manage().window().maximize();
-//        JavascriptExecutor jse = (JavascriptExecutor) driver;
-//        jse.executeScript("scroll(0, 1000000000);");
+
+
+        JavascriptExecutor jse = (JavascriptExecutor) driver;
+        
 
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
-        int count = 0;
-        List<WebElement> elements = driver.findElements(By.xpath("//button[contains(text(), 'Надіслати запрошення')]"));
-        for (WebElement element : elements) {
-            driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-            System.out.println("NIAVKA" + ((RemoteWebElement) element).getId());
-            try {
-                element.click();
-            } catch (Throwable n) {
-                System.out.println("SKIPPED" + ((RemoteWebElement) element).getId());
-            }
-            count = count + 1;
+for (int count =0; count<18; count++) {
+    List<WebElement> elements = driver.findElements(By.xpath("//button[contains(text(), 'Надіслати запрошення')]"));
+    for (WebElement element : elements) {
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        System.out.println("NIAVKA" + ((RemoteWebElement) element).getId());
+        try {
+            element.click();
+        } catch (Throwable n) {
+            System.out.println("SKIPPED" + ((RemoteWebElement) element).getId());
         }
-        System.out.println(count);
+
+
+        jse.executeScript("scroll(0, 3000);");
+
+    }
+}
+
     }
 
     private void vkLogin(WebDriver driver) {
